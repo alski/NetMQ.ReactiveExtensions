@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetMQ.ReactiveExtensions", "NetMQ.ReactiveExtensions\NetMQ.ReactiveExtensions.xproj", "{1F0D6712-7390-446F-9DCC-E86480360496}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetMQ.ReactiveExtensions", "NetMQ.ReactiveExtensions\NetMQ.ReactiveExtensions.csproj", "{54E1CED1-8F98-4732-AA87-D2457DC8C519}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetMQ.ReactiveExtensions.SamplePublisher", "NetMQ.ReactiveExtensions.SamplePublisher\NetMQ.ReactiveExtensions.SamplePublisher.xproj", "{72BBF61C-B5AC-49C5-B4F6-0EEEB97A98CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetMQ.ReactiveExtensions.SamplePublisher", "NetMQ.ReactiveExtensions.SamplePublisher\NetMQ.ReactiveExtensions.SamplePublisher.csproj", "{3831C7BD-752F-48FB-9474-A86DD8607BE9}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetMQ.ReactiveExtensions.SampleSubscriber", "NetMQ.ReactiveExtensions.SampleSubscriber\NetMQ.ReactiveExtensions.SampleSubscriber.xproj", "{F8CAD08F-532C-438B-9B7E-218DD6904840}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetMQ.ReactiveExtensions.SampleSubscriber", "NetMQ.ReactiveExtensions.SampleSubscriber\NetMQ.ReactiveExtensions.SampleSubscriber.csproj", "{46496958-08C9-4353-90D8-4A2D3C99A424}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetMQ.ReactiveExtensions.Tests", "NetMQ.ReactiveExtensions.Tests\NetMQ.ReactiveExtensions.Tests.xproj", "{7D1CAE81-2573-427B-A493-41D02A11EB30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetMQ.ReactiveExtensions.Tests", "NetMQ.ReactiveExtensions.Tests\NetMQ.ReactiveExtensions.Tests.csproj", "{87972E55-223B-4B4A-BD5C-6E199139F749}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,22 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F0D6712-7390-446F-9DCC-E86480360496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F0D6712-7390-446F-9DCC-E86480360496}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F0D6712-7390-446F-9DCC-E86480360496}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F0D6712-7390-446F-9DCC-E86480360496}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72BBF61C-B5AC-49C5-B4F6-0EEEB97A98CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72BBF61C-B5AC-49C5-B4F6-0EEEB97A98CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72BBF61C-B5AC-49C5-B4F6-0EEEB97A98CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72BBF61C-B5AC-49C5-B4F6-0EEEB97A98CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8CAD08F-532C-438B-9B7E-218DD6904840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8CAD08F-532C-438B-9B7E-218DD6904840}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8CAD08F-532C-438B-9B7E-218DD6904840}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8CAD08F-532C-438B-9B7E-218DD6904840}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D1CAE81-2573-427B-A493-41D02A11EB30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D1CAE81-2573-427B-A493-41D02A11EB30}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D1CAE81-2573-427B-A493-41D02A11EB30}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D1CAE81-2573-427B-A493-41D02A11EB30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54E1CED1-8F98-4732-AA87-D2457DC8C519}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54E1CED1-8F98-4732-AA87-D2457DC8C519}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54E1CED1-8F98-4732-AA87-D2457DC8C519}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54E1CED1-8F98-4732-AA87-D2457DC8C519}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3831C7BD-752F-48FB-9474-A86DD8607BE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3831C7BD-752F-48FB-9474-A86DD8607BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3831C7BD-752F-48FB-9474-A86DD8607BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3831C7BD-752F-48FB-9474-A86DD8607BE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46496958-08C9-4353-90D8-4A2D3C99A424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46496958-08C9-4353-90D8-4A2D3C99A424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46496958-08C9-4353-90D8-4A2D3C99A424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46496958-08C9-4353-90D8-4A2D3C99A424}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87972E55-223B-4B4A-BD5C-6E199139F749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87972E55-223B-4B4A-BD5C-6E199139F749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87972E55-223B-4B4A-BD5C-6E199139F749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87972E55-223B-4B4A-BD5C-6E199139F749}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
