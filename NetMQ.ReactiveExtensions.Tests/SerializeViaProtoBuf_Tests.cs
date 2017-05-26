@@ -13,10 +13,11 @@ namespace NetMQ.ReactiveExtensions.Tests
             NUnitUtils.PrintTestName();
 
             Stopwatch sw = Stopwatch.StartNew();
+            var serializer = new SerializeViaProtoBuf<decimal>();
 
             const decimal x = 123.4m;
-            var rawBytes = x.SerializeProtoBuf();
-            var original = rawBytes.DeserializeProtoBuf<decimal>();
+            var rawBytes = serializer.Serialize(x);
+            var original = serializer.Deserialize(rawBytes);
             Assert.AreEqual(x, original);
 
             NUnitUtils.PrintElapsedTime(sw.Elapsed);
@@ -28,10 +29,11 @@ namespace NetMQ.ReactiveExtensions.Tests
             NUnitUtils.PrintTestName();
 
             Stopwatch sw = Stopwatch.StartNew();
+            var serializer = new SerializeViaProtoBuf<string>();
 
             const string x = "Hello";
-            var rawBytes = x.SerializeProtoBuf();
-            var original = rawBytes.DeserializeProtoBuf<string>();
+            var rawBytes = serializer.Serialize(x);
+            var original = serializer.Deserialize(rawBytes);
             Assert.AreEqual(x, original);
 
             NUnitUtils.PrintElapsedTime(sw.Elapsed);
@@ -43,10 +45,11 @@ namespace NetMQ.ReactiveExtensions.Tests
             NUnitUtils.PrintTestName();
 
             Stopwatch sw = Stopwatch.StartNew();
+            var serializer = new SerializeViaProtoBuf<int>();
 
             const int x = 42;
-            var rawBytes = x.SerializeProtoBuf();
-            var original = rawBytes.DeserializeProtoBuf<int>();
+            var rawBytes = serializer.Serialize(x);
+            var original = serializer.Deserialize(rawBytes);
             Assert.AreEqual(x, original);
 
             NUnitUtils.PrintElapsedTime(sw.Elapsed);

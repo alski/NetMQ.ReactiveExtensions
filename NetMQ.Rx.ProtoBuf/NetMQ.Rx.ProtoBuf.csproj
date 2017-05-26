@@ -1,12 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netcoreapp1.0</TargetFrameworks>
-    <AssemblyName>NetMQ.ReactiveExtensions.SamplePublisher</AssemblyName>
-    <OutputType>Exe</OutputType>
-    <PackageId>NetMQ.ReactiveExtensions.SamplePublisher</PackageId>
-    <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
-    <RuntimeFrameworkVersion Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">1.0.4</RuntimeFrameworkVersion>
+    <TargetFrameworks>netstandard1.6;net45;net46</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>NetMQ.Rx.ProtoBuf</AssemblyName>
+    <PackageId>NetMQ.Rx.ProtoBuf</PackageId>
+    <RuntimeIdentifiers>win7-x64</RuntimeIdentifiers>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -15,18 +14,28 @@
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="App.config" />
+    <ProjectReference Include="..\NetMQ.ReactiveExtensions\NetMQ.ReactiveExtensions.csproj" />
   </ItemGroup>
 
+
   <ItemGroup>
-    <ProjectReference Include="..\NetMQ.ReactiveExtensions\NetMQ.ReactiveExtensions.csproj" />
-    <ProjectReference Include="..\NetMQ.Rx.ProtoBuf\NetMQ.Rx.ProtoBuf.csproj" />
+    <PackageReference Include="NetMQ" Version="4.0.9" />
+    <PackageReference Include="protobuf-net" Version="2.1.0" />
+    <PackageReference Include="System.Reactive.Core" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <PackageReference Include="System.Xml.Linq" Version="3.5.*" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>

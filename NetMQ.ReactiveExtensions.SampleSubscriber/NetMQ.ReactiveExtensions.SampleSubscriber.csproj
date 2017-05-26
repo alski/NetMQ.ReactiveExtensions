@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NetMQ.ReactiveExtensions\NetMQ.ReactiveExtensions.csproj" />
+    <ProjectReference Include="..\NetMQ.Rx.ProtoBuf\NetMQ.Rx.ProtoBuf.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">

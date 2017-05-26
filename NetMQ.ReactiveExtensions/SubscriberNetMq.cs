@@ -31,15 +31,18 @@ namespace NetMQ.ReactiveExtensions
         /// <param name="whenToCreateNetworkConnection">When to create the network connection.</param>
         /// <param name="cancellationTokenSource">Allows graceful termination of all internal threads associated with this subject.</param>
         /// <param name="loggerDelegate">(optional) If we want to look at messages generated within this class, specify a logger here.</param>
-        public SubscriberNetMq(string addressZeroMq, string subscriberFilterName = null,
-            WhenToCreateNetworkConnection whenToCreateNetworkConnection =
-                WhenToCreateNetworkConnection.SetupSubscriberTransportNow,
+        /// <param name="serializer">(optional) Define the serializer we will use to convert to typed data.</param>
+        public SubscriberNetMq(string addressZeroMq,
+            INetMQSerializer<T> serializer,
+            string subscriberFilterName = null,
+            WhenToCreateNetworkConnection whenToCreateNetworkConnection = WhenToCreateNetworkConnection.SetupSubscriberTransportNow,
             CancellationTokenSource cancellationTokenSource = default(CancellationTokenSource),
             Action<string> loggerDelegate = null)
         {
             AddressZeroMq = addressZeroMq;
             _cancellationTokenSource = cancellationTokenSource;
             _loggerDelegate = loggerDelegate;
+            _serializer = serializer;
 
             if (subscriberFilterName == null)
             {
@@ -63,11 +66,13 @@ namespace NetMQ.ReactiveExtensions
                 }
             }
 
+#if !UAP
             if (string.IsNullOrEmpty(Thread.CurrentThread.Name) == true)
             {
                 // Cannot set the thread name twice.
                 Thread.CurrentThread.Name = subscriberFilterName;
             }
+#endif
 
             AddressZeroMq = addressZeroMq;
 
@@ -94,13 +99,14 @@ namespace NetMQ.ReactiveExtensions
 
         }
 
-        #region Initialize subscriber on demand.
+#region Initialize subscriber on demand.
 
         private SubscriberSocket _subscriberSocket;
         private readonly object _subscribersLock = new object();
         private volatile bool _initializeSubscriberDone = false;
         private Thread _thread;
         private ManualResetEvent _threadWaitExitHandle = new ManualResetEvent(false);
+        private readonly INetMQSerializer<T> _serializer;
 
         private void InitializeSubscriberOnFirstUse(string addressZeroMq)
         {
@@ -146,8 +152,7 @@ namespace NetMQ.ReactiveExtensions
                                     {
                                         // Originated from "OnNext".
                                         case "N":
-                                            T messageReceived =
-                                                _subscriberSocket.ReceiveFrameBytes().DeserializeProtoBuf<T>();
+                                            T messageReceived = _serializer.Deserialize(_subscriberSocket.ReceiveFrameBytes());
                                             lock (_subscribersLock)
                                             {
                                                 try
@@ -271,9 +276,9 @@ namespace NetMQ.ReactiveExtensions
 				Thread.Sleep(500); // Otherwise, the first item we subscribe  to may get missed by the subscriber.
 			}
 		}
-		#endregion
+#endregion
 
-		#region IObservable<T> (i.e. the subscriber)
+#region IObservable<T> (i.e. the subscriber)
 		/// <summary>
 		///	Intent: Exactly the same as "Subscribe" in Reactive Extensions (RX).
 		/// </summary>
@@ -298,7 +303,7 @@ namespace NetMQ.ReactiveExtensions
 				}
 			});
 		}
-		#endregion
+#endregion
 
 		public void Dispose()
 		{

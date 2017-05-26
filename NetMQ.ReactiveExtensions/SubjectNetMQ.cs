@@ -15,10 +15,10 @@ namespace NetMQ.ReactiveExtensions
 		private readonly PublisherNetMq<T> _publisher;
 		private readonly SubscriberNetMq<T> _subscriber;
 
-		public SubjectNetMQ(string addressZeroMq, string subscriberFilterName = null, WhenToCreateNetworkConnection whenToCreateNetworkConnection = WhenToCreateNetworkConnection.LazyConnectOnFirstUse, CancellationTokenSource cancellationTokenSource = default(CancellationTokenSource), Action<string> loggerDelegate = null)
+		public SubjectNetMQ(string addressZeroMq, INetMQSerializer<T> serializer, string subscriberFilterName = null, WhenToCreateNetworkConnection whenToCreateNetworkConnection = WhenToCreateNetworkConnection.LazyConnectOnFirstUse, CancellationTokenSource cancellationTokenSource = default(CancellationTokenSource), Action<string> loggerDelegate = null)
 		{
-			_publisher = new PublisherNetMq<T>(addressZeroMq, subscriberFilterName, WhenToCreateNetworkConnection.LazyConnectOnFirstUse, cancellationTokenSource, loggerDelegate);
-			_subscriber = new SubscriberNetMq<T>(addressZeroMq, subscriberFilterName, WhenToCreateNetworkConnection.LazyConnectOnFirstUse, cancellationTokenSource, loggerDelegate);
+			_publisher = new PublisherNetMq<T>(addressZeroMq, serializer, subscriberFilterName, WhenToCreateNetworkConnection.LazyConnectOnFirstUse, cancellationTokenSource, loggerDelegate);
+			_subscriber = new SubscriberNetMq<T>(addressZeroMq, serializer, subscriberFilterName, WhenToCreateNetworkConnection.LazyConnectOnFirstUse, cancellationTokenSource, loggerDelegate);
 		}
 
 		public string SubscriberFilterName

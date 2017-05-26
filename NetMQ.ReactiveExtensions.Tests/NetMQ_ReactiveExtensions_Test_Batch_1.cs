@@ -23,7 +23,7 @@ namespace NetMQ.ReactiveExtensions.Tests
 
                 var pubSub =
                     new SubjectNetMQ<ClassNameIsLongerThenThirtyTwoCharactersForAbsolutelySure>(
-                        "tcp://127.0.0.1:" + freePort, loggerDelegate: Console.Write);
+                        "tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<ClassNameIsLongerThenThirtyTwoCharactersForAbsolutelySure>(), loggerDelegate: Console.Write);
                 pubSub.Subscribe(o =>
                 {
                     Assert.IsTrue(o.Name == "Bob");
@@ -62,7 +62,7 @@ namespace NetMQ.ReactiveExtensions.Tests
                 var freePort = NUnitUtils.TcpPortFree();
 
                 timeMilliseconds.Add(sw.Elapsed);
-                var pubSub = new SubjectNetMQ<MyMessageClassType1>("tcp://127.0.0.1:" + freePort,
+                var pubSub = new SubjectNetMQ<MyMessageClassType1>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<MyMessageClassType1>(),
                     loggerDelegate: Console.Write);
                 timeMilliseconds.Add(sw.Elapsed);
                 pubSub.Subscribe(
@@ -114,7 +114,7 @@ namespace NetMQ.ReactiveExtensions.Tests
             {
                 var freePort = NUnitUtils.TcpPortFree();
 
-                var pubSub = new SubjectNetMQ<MyMessageStructType1>("tcp://127.0.0.1:" + freePort,
+                var pubSub = new SubjectNetMQ<MyMessageStructType1>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<MyMessageStructType1>(),
                     loggerDelegate: Console.Write);
                 pubSub.Subscribe(o =>
                 {
@@ -149,7 +149,7 @@ namespace NetMQ.ReactiveExtensions.Tests
             var cd = new CountdownEvent(max);
             {
                 var freePort = NUnitUtils.TcpPortFree();
-                var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, loggerDelegate: Console.Write);
+                var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<int>(), loggerDelegate: Console.Write);
                 var d1 = pubSub.Subscribe(o => { cd.Signal(); });
 
                 var d2 = pubSub.Subscribe(o => { Assert.Fail(); },
@@ -182,7 +182,7 @@ namespace NetMQ.ReactiveExtensions.Tests
             {
                 var freePort = NUnitUtils.TcpPortFree();
 
-                var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, loggerDelegate: Console.Write);
+                var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<int>(), loggerDelegate: Console.Write);
 
                 // Forces the publisher to be initialized. Subscriber not set up yet, so this message will never get
                 // delivered to the subscriber, which is what is should do.
@@ -225,7 +225,7 @@ namespace NetMQ.ReactiveExtensions.Tests
                 timeMilliseconds.Add(sw.Elapsed);
                 var freePort = NUnitUtils.TcpPortFree();
                 timeMilliseconds.Add(sw.Elapsed);
-                var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, loggerDelegate: Console.Write);
+                var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<int>(), loggerDelegate: Console.Write);
                 timeMilliseconds.Add(sw.Elapsed);
                 pubSub.Subscribe(
                     o =>
@@ -274,7 +274,7 @@ namespace NetMQ.ReactiveExtensions.Tests
             var passed = false;
             {
                 var freePort = NUnitUtils.TcpPortFree();
-                var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, loggerDelegate: Console.Write);
+                var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<int>(), loggerDelegate: Console.Write);
                 pubSub.Subscribe(
                     o =>
                     {
@@ -318,7 +318,7 @@ namespace NetMQ.ReactiveExtensions.Tests
             var cd = new CountdownEvent(3);
             {
                 var freePort = NUnitUtils.TcpPortFree();
-                var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, loggerDelegate: Console.Write);
+                var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<int>(), loggerDelegate: Console.Write);
                 pubSub.Subscribe(o =>
                 {
                     Assert.AreEqual(o, 42);
@@ -360,8 +360,8 @@ namespace NetMQ.ReactiveExtensions.Tests
             {
                 var freePort = NUnitUtils.TcpPortFree();
 
-                var publisher = new PublisherNetMq<int>("tcp://127.0.0.1:" + freePort, loggerDelegate: Console.Write);
-                var subscriber = new SubscriberNetMq<int>("tcp://127.0.0.1:" + freePort, loggerDelegate: Console.Write);
+                var publisher = new PublisherNetMq<int>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<int>(), loggerDelegate: Console.Write);
+                var subscriber = new SubscriberNetMq<int>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<int>(), loggerDelegate: Console.Write);
 
                 subscriber.Subscribe(o =>
                 {
@@ -396,7 +396,7 @@ namespace NetMQ.ReactiveExtensions.Tests
             {
                 var freePort = NUnitUtils.TcpPortFree();
 
-                var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, loggerDelegate: Console.Write);
+                var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<int>(), loggerDelegate: Console.Write);
                 pubSub.Subscribe(o =>
                 {
                     Console.Write("Test 1: {0}\n", o);

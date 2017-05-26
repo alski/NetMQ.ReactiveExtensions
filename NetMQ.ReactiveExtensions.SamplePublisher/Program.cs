@@ -20,7 +20,7 @@ namespace NetMQ.ReactiveExtensions.SamplePublisher
 
 			// Debug: Subscribe to ourself.
 			{
-				var subscriber = new SubscriberNetMq<MyMessage>(endPoint, loggerDelegate: msg => Console.Write(msg));
+				var subscriber = new SubscriberNetMq<MyMessage>(endPoint, new SerializeViaProtoBuf<MyMessage>(), loggerDelegate: msg => Console.Write(msg));
 				// Debug: subscribe to ourself. If you run the "SampleSubscriber" project now, you will see the same
 				// messages appearing in that subscriber too.
 				subscriber.Subscribe(message =>
@@ -31,7 +31,7 @@ namespace NetMQ.ReactiveExtensions.SamplePublisher
 
 			// Publisher.
 			{
-				var publisher = new PublisherNetMq<MyMessage>(endPoint, loggerDelegate: msg => Console.Write(msg));
+				var publisher = new PublisherNetMq<MyMessage>(endPoint, new SerializeViaProtoBuf<MyMessage>(), loggerDelegate: msg => Console.Write(msg));
 
 				int i = 0;
 				while (true)

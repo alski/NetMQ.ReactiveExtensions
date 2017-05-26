@@ -4,12 +4,13 @@ using ProtoBuf;
 
 namespace NetMQ.ReactiveExtensions
 {
-	/// <summary>
-	/// Intent: Allow us to serialize using ProtoBuf.
-	/// </summary>
-	public static class SerializeViaProtoBuf
-	{
-		public static byte[] SerializeProtoBuf<T>(this T message)
+
+    /// <summary>
+    /// Intent: Allow us to serialize using ProtoBuf.
+    /// </summary>
+    public  class SerializeViaProtoBuf<T> : INetMQSerializer<T>
+    {
+		public  byte[] Serialize( T message)
 		{
 			byte[] result;
 			using (var stream = new MemoryStream())
@@ -20,7 +21,7 @@ namespace NetMQ.ReactiveExtensions
 			return result;
 		}
 
-		public static T DeserializeProtoBuf<T>(this byte[] bytes)
+		public  T Deserialize( byte[] bytes)
 		{
 			T result;
 			using (var stream = new MemoryStream(bytes))

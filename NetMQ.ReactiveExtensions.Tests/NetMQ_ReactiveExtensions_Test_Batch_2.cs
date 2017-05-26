@@ -17,7 +17,7 @@ namespace NetMQ.ReactiveExtensions.Tests
             var sw = Stopwatch.StartNew();
 
             var freePort = NUnitUtils.TcpPortFree();
-            var pubSub = new SubjectNetMQ<MessageNotSerializableByProtobuf>("tcp://127.0.0.1:" + freePort,
+            var pubSub = new SubjectNetMQ<MessageNotSerializableByProtobuf>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<MessageNotSerializableByProtobuf>(),
                 loggerDelegate: Console.Write);
             try
             {
@@ -90,9 +90,9 @@ namespace NetMQ.ReactiveExtensions.Tests
             {
                 var freePort = NUnitUtils.TcpPortFree();
 
-                var pubSub1 = new SubjectNetMQ<MyMessageStructType1>("tcp://127.0.0.1:" + freePort,
+                var pubSub1 = new SubjectNetMQ<MyMessageStructType1>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<MyMessageStructType1>(),
                     loggerDelegate: Console.Write);
-                var pubSub2 = new SubjectNetMQ<MyMessageStructType2>("tcp://127.0.0.1:" + freePort,
+                var pubSub2 = new SubjectNetMQ<MyMessageStructType2>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<MyMessageStructType2>(),
                     loggerDelegate: Console.Write);
                 pubSub1.Subscribe(o =>
                 {
@@ -151,9 +151,9 @@ namespace NetMQ.ReactiveExtensions.Tests
                     Console.Write("Speed test with {0} messages:\n", max);
 
                     var freePort = NUnitUtils.TcpPortFree();
-                    var publisher = new PublisherNetMq<int>("tcp://127.0.0.1:" + freePort,
+                    var publisher = new PublisherNetMq<int>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<int>(),
                         loggerDelegate: Console.Write);
-                    var subscriber = new SubscriberNetMq<int>("tcp://127.0.0.1:" + freePort,
+                    var subscriber = new SubscriberNetMq<int>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<int>(),
                         loggerDelegate: Console.Write);
 
                     subscriber.Subscribe(i =>
@@ -200,7 +200,7 @@ namespace NetMQ.ReactiveExtensions.Tests
                     Console.Write("Speed test with {0} messages:\n", max);
 
                     var freePort = NUnitUtils.TcpPortFree();
-                    var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, loggerDelegate: Console.Write);
+                    var pubSub = new SubjectNetMQ<int>("tcp://127.0.0.1:" + freePort, new SerializeViaProtoBuf<int>(), loggerDelegate: Console.Write);
 
                     pubSub.Subscribe(i =>
                     {

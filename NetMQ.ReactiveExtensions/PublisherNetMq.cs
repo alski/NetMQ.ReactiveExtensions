@@ -30,12 +30,19 @@ namespace NetMQ.ReactiveExtensions
 		/// <param name="cancellationTokenSource"></param>
 		/// <param name="loggerDelegate"></param>
 		/// <returns></returns>
-		public PublisherNetMq(string addressZeroMq, string subscriberFilterName = null, WhenToCreateNetworkConnection whenToCreateNetworkConnection = WhenToCreateNetworkConnection.SetupPublisherTransportNow, CancellationTokenSource cancellationTokenSource = default(CancellationTokenSource), Action<string> loggerDelegate = null)
+		public PublisherNetMq(
+            string addressZeroMq,
+            INetMQSerializer<T> serializer,
+            string subscriberFilterName = null, 
+            WhenToCreateNetworkConnection whenToCreateNetworkConnection = WhenToCreateNetworkConnection.SetupPublisherTransportNow, 
+            CancellationTokenSource cancellationTokenSource = default(CancellationTokenSource), 
+            Action<string> loggerDelegate = null)
 		{
 			_cancellationTokenSource = cancellationTokenSource;
 			_loggerDelegate = loggerDelegate;
 			_whenToCreateNetworkConnection = whenToCreateNetworkConnection;
 			_cancellationTokenSource = cancellationTokenSource;
+            _serializer = serializer;
 
 			if (subscriberFilterName == null)
 			{
@@ -58,13 +65,14 @@ namespace NetMQ.ReactiveExtensions
 				}
 			}
 
-			if (string.IsNullOrEmpty(Thread.CurrentThread.Name) == true)
+#if !UAP
+            if (string.IsNullOrEmpty(Thread.CurrentThread.Name) == true)
 			{
 				// Cannot set the thread name twice.
 				Thread.CurrentThread.Name = subscriberFilterName;
 			}
-
-			AddressZeroMq = addressZeroMq;
+#endif 
+            AddressZeroMq = addressZeroMq;
 
 			if (string.IsNullOrEmpty(AddressZeroMq))
 			{
@@ -90,7 +98,9 @@ namespace NetMQ.ReactiveExtensions
 		private PublisherSocket _publisherSocket;
 		private volatile bool _initializePublisherDone = false;
 		private readonly object _initializePublisherLock = new object();
-		private void InitializePublisherOnFirstUse(string addressZeroMq)
+        private readonly INetMQSerializer<T> _serializer;
+
+        private void InitializePublisherOnFirstUse(string addressZeroMq)
 		{
 			if (_initializePublisherDone == false) // Double checked locking.
 			{
@@ -114,7 +124,7 @@ namespace NetMQ.ReactiveExtensions
 			{
 				InitializePublisherOnFirstUse(this.AddressZeroMq);
 
-				byte[] serialized = message.SerializeProtoBuf<T>();
+				byte[] serialized = _serializer.Serialize(message);
 
 				// Publish message using ZeroMQ as the transport mechanism.
 				_publisherSocket.SendMoreFrame(SubscriberFilterName)
